@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>paulo@career-roadmap — bash</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/terminal.css" />
+  <link rel="stylesheet" href="css/stages.css" />
+</head>
+<body>
+
+  <div class="screen-wrapper">
+
+    <main id="terminal-window" class="terminal-window" aria-label="Terminal Interativo paulo@career-roadmap">
+
+      <header class="terminal-titlebar">
+        <div class="window-dots" aria-hidden="true">
+          <span class="win-dot red"></span>
+          <span class="win-dot yellow"></span>
+          <span class="win-dot green"></span>
+        </div>
+        <div id="window-title" class="window-title">paulo@career-roadmap — bash</div>
+      </header>
+
+      <section id="terminal-body" class="terminal-body" role="log" aria-live="polite"></section>
+
+      <footer id="terminal-footer" class="terminal-footer-prompt">
+        <div class="live-prompt-row">
+          <span id="live-prompt-prefix" class="live-prompt-prefix">paulo@career-roadmap:~$ </span>
+          <span class="live-input-mirror-wrap">
+            <span id="typed-mirror" class="typed-mirror"></span><span class="cursor-underscore">_</span><span id="ghost-autocomplete" class="ghost-autocomplete"></span>
+          </span>
+          <input
+            type="text"
+            id="cmd-input"
+            class="hidden-cmd-input"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            aria-label="Digite um comando no terminal"
+          />
+        </div>
+        <div class="prompt-hint-caption">
+          <span id="status-caption">Digite um comando (ex: help, ls, cd history) ou use as setas ← → para navegar.</span>
+        </div>
+      </footer>
+
+    </main>
+
+    <nav class="discreet-controls" aria-label="Controles de navegação">
+      <div class="discreet-group">
+        <button type="button" id="btn-prev" class="discreet-btn" title="Etapa anterior (Seta Esquerda / PgUp)">← voltar</button>
+        <button type="button" id="btn-next" class="discreet-btn" title="Próxima etapa (Seta Direita / PgDn)">avançar →</button>
+        <button type="button" id="btn-home" class="discreet-btn" title="Tela inicial (home)">início</button>
+        <button type="button" id="btn-dirs" class="discreet-btn" title="Menu de diretórios">diretórios ▾</button>
+        <div id="dir-menu-popover" class="dir-menu-popover hidden"></div>
+      </div>
+
+      <div id="discreet-progress" class="discreet-progress">00 / 08 — ~</div>
+
+      <div class="discreet-group">
+        <button type="button" class="discreet-btn" data-exec-cmd="help">help</button>
+        <button type="button" class="discreet-btn" data-exec-cmd="ls">ls</button>
+        <a href="material-grafico.html" class="discreet-btn" style="text-decoration:none;" title="Abrir Material Gráfico para salvar em PDF">material gráfico</a>
+        <button type="button" id="btn-reboot" class="discreet-btn" title="Reiniciar sequência de boot">boot</button>
+        <button type="button" id="btn-font-dec" class="discreet-btn" title="Diminuir tamanho da fonte">A-</button>
+        <button type="button" id="btn-font-inc" class="discreet-btn" title="Aumentar tamanho da fonte">A+</button>
+        <button type="button" id="btn-fullscreen" class="discreet-btn" title="Tela cheia">tela cheia</button>
+      </div>
+    </nav>
+
+  </div>
+
+  <script src="js/roadmap-data.js"></script>
+  <script src="js/renderers.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>paulo@career-roadmap — Material Gráfico (PDF)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/terminal.css" />
+  <link rel="stylesheet" href="css/stages.css" />
+  <style>
+    :root {
+      --fs-xs: 0.78rem;
+      --fs-sm: 0.88rem;
+      --fs-base: 0.96rem;
+      --fs-md: 1.08rem;
+      --fs-lg: 1.24rem;
+    }
+
+    html, body {
+      height: auto !important;
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+      background-color: #000000;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .pdf-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      width: 100%;
+      background: rgba(5, 7, 7, 0.94);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--border-window);
+      padding: 0.75rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .pdf-btn {
+      background: transparent;
+      border: 1px solid var(--border-window);
+      color: var(--text-bright);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      padding: 0.42rem 0.95rem;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 150ms, color 150ms;
+    }
+
+    .pdf-btn:hover {
+      border-color: var(--green-prompt);
+      color: var(--green-prompt);
+    }
+
+    .pdf-btn.primary {
+      border-color: var(--green-prompt);
+      color: var(--green-prompt);
+    }
+
+    .pdf-deck {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.25rem;
+      padding: 1.75rem 1.5rem 3rem;
+    }
+
+    .pdf-page {
+      width: 100%;
+      max-width: 1220px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .pdf-page .terminal-window {
+      width: 100%;
+      max-width: 100%;
+      min-height: 0;
+      max-height: none;
+      flex: 1;
+    }
+
+    .pdf-page .terminal-titlebar {
+      padding: 0.75rem 1.75rem;
+    }
+
+    .pdf-page .terminal-body {
+      overflow: visible;
+      padding: 1.35rem 2.1rem;
+    }
+
+    .pdf-page .term-prompt-line {
+      margin-bottom: 1rem;
+    }
+
+    .pdf-page .term-output-content {
+      gap: 1.05rem;
+      line-height: 1.52;
+    }
+
+    .pdf-page .term-section-title {
+      margin-bottom: 0.3rem;
+    }
+
+    .pdf-page .term-section-subtitle {
+      margin-bottom: 0.5rem;
+    }
+
+    .pdf-page .term-list {
+      gap: 0.28rem;
+    }
+
+    .pdf-page .term-list li {
+      line-height: 1.45;
+    }
+
+    .pdf-page .term-table {
+      gap: 0.32rem;
+    }
+
+    .pdf-page .term-row {
+      line-height: 1.45;
+    }
+
+    .pdf-page .spec-item {
+      margin-bottom: 0.55rem;
+    }
+
+    .pdf-page .terminal-footer-prompt {
+      padding: 0.75rem 2.1rem 0.85rem;
+    }
+
+    .pdf-page .term-line {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+    }
+
+    .pdf-page .cursor-underscore {
+      animation: none !important;
+      opacity: 1 !important;
+    }
+
+    .pdf-page-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 0.35rem;
+      font-size: 0.74rem;
+      color: var(--text-dim);
+    }
+
+    @page {
+      size: A4 landscape;
+      margin: 0;
+    }
+
+    @media print {
+      :root {
+        --fs-xs: 0.74rem;
+        --fs-sm: 0.84rem;
+        --fs-base: 0.92rem;
+        --fs-md: 1.04rem;
+        --fs-lg: 1.18rem;
+      }
+
+      .pdf-toolbar {
+        display: none !important;
+      }
+
+      .pdf-deck {
+        padding: 0 !important;
+        gap: 0 !important;
+        display: block !important;
+      }
+
+      .pdf-page {
+        width: 297mm !important;
+        height: 210mm !important;
+        max-width: 297mm !important;
+        padding: 7mm 10mm 5mm !important;
+        margin: 0 !important;
+        background-color: #000000 !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+      }
+
+      .pdf-page:last-child {
+        page-break-after: auto !important;
+        break-after: auto !important;
+      }
+
+      .pdf-page .terminal-window {
+        height: 100% !important;
+        flex: 1 !important;
+        box-shadow: none !important;
+        border: 1px solid #242c29 !important;
+      }
+
+      .pdf-page .terminal-body {
+        padding: 1.15rem 1.9rem !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="pdf-toolbar">
+    <a href="index.html" class="pdf-btn">← Voltar ao Terminal Interativo</a>
+    <span>Material Gráfico — Visualização para Impressão / PDF</span>
+    <button type="button" class="pdf-btn primary" onclick="window.print()">Salvar como PDF (Ctrl+P)</button>
+  </div>
+
+  <div id="pdf-deck" class="pdf-deck"></div>
+
+  <script src="js/roadmap-data.js"></script>
+  <script>
+    (function () {
+      const DATA = window.ROADMAP_DATA;
+      const deck = document.getElementById("pdf-deck");
+
+      function esc(str) {
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function promptLine(cmd, originPath) {
+        const p = originPath && originPath !== "~" ? originPath : "~";
+        return `<div class="term-prompt-line"><span class="prompt-host">paulo@career-roadmap:${esc(p)}$</span> <span class="prompt-cmd">${esc(cmd)}</span></div>`;
+      }
+
+      function renderPdfStage(st, prevPath) {
+        const p = DATA.profile;
+
+        switch (st.id) {
+          case "home": {
+            const dirs = DATA.stages.slice(1);
+            const dirsHtml = dirs.map(d =>
+              `<li><strong style="color:var(--green-prompt);">${esc(d.dirName)}</strong> — ${esc(d.title)}</li>`
+            ).join("");
+            return `
+              ${promptLine("whoami", "~")}
+              <div class="term-output-content">
+                <div class="term-line">
+                  <div class="term-section-title">IDENTIFICAÇÃO</div>
+                  <div class="term-table">
+                    <div class="term-row"><span class="term-col-key">Nome</span><span class="term-col-val" style="color:var(--green-prompt)">${esc(p.name)}</span></div>
+                    <div class="term-row"><span class="term-col-key">Formação anterior</span><span class="term-col-val">${esc(p.previousDegree)}</span></div>
+                    <div class="term-row"><span class="term-col-key">Formação atual</span><span class="term-col-val" style="color:var(--text-bright)">${esc(p.currentDegree)}</span></div>
+                    <div class="term-row"><span class="term-col-key">Instituição</span><span class="term-col-val">${esc(p.institution)}</span></div>
+                    <div class="term-row"><span class="term-col-key">Período atual</span><span class="term-col-val">${esc(p.currentSemester)}</span></div>
+                    <div class="term-row"><span class="term-col-key">Horizonte do roadmap</span><span class="term-col-val" style="color:var(--amber-accent)">${esc(p.horizon)}</span></div>
+                    <div class="term-row"><span class="term-col-key">Objetivo profissional</span><span class="term-col-val" style="color:var(--green-prompt)">${esc(p.objective)}</span></div>
+                  </div>
+                </div>
+                <div class="term-line">
+                  <div class="term-section-title">ESTRUTURA DO ROADMAP (08 ETAPAS)</div>
+                  <ul class="term-list two-col">
+                    ${dirsHtml}
+                  </ul>
+                </div>
+              </div>
+            `;
+          }
+
+          case "history": {
+            const expHtml = st.experiences.map(item => `<li>${esc(item)}</li>`).join("");
+            const compHtml = st.competencies.map(item => `<li>${esc(item)}</li>`).join("");
+            return `
+              ${promptLine(st.cmd, prevPath)}
+              <div class="term-output-content">
+                <div class="term-line">
+                  <div class="term-section-title">DIRETÓRIO 01 — /history</div>
+                  <div class="term-section-subtitle">${esc(st.title)}</div>
+                  <ul class="term-list">
+                    ${expHtml}
+                  </ul>
+                </div>
+                <div class="term-line">
+                  <div class="term-section-title">COMPETÊNCIAS ADQUIRIDAS</div>
+                  <ul class="term-list two-col amber-markers">
+                    ${compHtml}
+                  </ul>
+                </div>
+              </div>
+            `;
+          }
+
+          case "transition": {
+            const highlightsHtml = st.highlights.map(item => `<li>${esc(item)}</li>`).join("");
+            return `
+              ${promptLine(st.cmd, prevPath)}
+              <div class="term-output-content">
+                <div class="term-line">
+                  <div class="term-section-title">DIRETÓRIO 02 — /transition</div>
+                  <div class="term-section-subtitle">${esc(st.title)}</div>
+                  <div style="padding-left:1.25rem; margin-bottom:0.65rem; color:var(--green-prompt);">
+                    [Direito]  ──────►  [Ciência da Computação — PUC Minas]
+                  </div>
+                  <ul class="term-list">
+                    ${highlightsHtml}
+                  </ul>
+                </div>
+              </div>
+            `;
+          }
+
+          case "current-status": {
+            const coursesHtml = st.courses.map(c => `<li>${esc(c)}</li>`).join("");
+            const prioritiesHtml = st.priorities.map(pr => `<li>${esc(pr)}</li>`).join("");
+            const meansHtml = st.means.map(m => `<li>${esc(m)}</li>`).join("");
+            return `
+              ${promptLine(st.cmd, prevPath)}
+              <div class="term-output-content">
+                <div class="term-line">
+                  <div class="term-section-title">DIRETÓRIO 03 — /current-status (3º PERÍODO — ${esc(st.semesterTag.toUpperCase())})</div>
+                  <div class="term-section-subtitle">Disciplinas atuais</div>
+                  <ul class="term-list two-col">
+                    ${coursesHtml}
+                  </ul>
+                </div>
+                <div class="term-line">
+                  <div class="term-section-title">PRIORIDADES ATUAIS</div>
+                  <ul class="term-list two-col amber-markers">
+                    ${prioritiesHtml}
+                  </ul>
+                </div>
+                <div class="term-line">
+                  <div class="term-section-title">MEIOS DE ESTUDO (CURSOS, LIVROS E SITES)</div>
+                  <ul class="term-list">
+                    ${meansHtml}
+                  </ul>
+                </div>
+              </div>
+            `;
+          }
+
+          case "next-semester": {
+            const coursesHtml = st.courses.map((c, i) =>
+              i === 0 ? `<li style="color:var(--green-prompt); font-weight:600;">${esc(c)}</li>` : `<li>${esc(c)}</li>`
+            ).join("");
+            const objHtml = st.objectives.map(o => `<li>${esc(o)}</li>`).join("");
+            const meansHtml = st.means.map(m => `<li>${esc(m)}</li>`).join("");
+            return `
+              ${promptLine(st.cmd, prevPath)}
+              <div class="term-output-content">
+                <div class="term-line">
+                  <div class="term-section-title">DIRETÓRIO 04 — /next-semester (4º PERÍODO — ${esc(st.semesterTag.toUpperCase())})</div>
+                  <div class="term-section-subtitle">Disciplinas relevantes</div>
+                  <ul class="term-list two-col">
+                    ${coursesHtml}
+                  </ul>
+                </div>
+                <div class="term-line">
+                  <div class="term-section-title">OBJETIVOS DO PERÍODO</div>
+                  <ul class="term-list two-col amber-markers">
+                    ${objHtml}
+                  </ul>
+                </div>
+                <div class="term-line">
+                  <div class="term-section-title">MEIOS PLANEJADOS (CURSOS, LIVROS E PLATAFORMAS)</div>
+                  <ul class="term-list">
+                    ${meansHtml}
+                  </ul>
+                </div>
+              </div>
+            `;
+          }
+
+          case "skill-development": {
+            const itemsHtml = st.plannedEvolution.map(item => `<li>${esc(item)}</li>`).join("");
+            const meansHtml = st.means.map(m => `<li>${esc(m)}</li>`).join("");
+            return `
+              ${promptLine(st.cmd, prevPath)}
+              <div class="term-output-content">
+                <div class="term-line">
+                  <div class="term-section-title">DIRETÓRIO 05 — /skill-development (5º E 6º PERÍODOS — ${esc(st.semesterTag.toUpperCase())})</div>
+                  <div class="term-section-subtitle">Desenvolvimento técnico — evolução planejada</div>
+                  <ul class="term-list two-col amber-markers">
+                    ${itemsHtml}
+                  </ul>
+                </div>
+                <div class="term-line">
+                  <div class="term-section-title">MEIOS PLANEJADOS (CURSOS, LIVROS, SITES E PRÁTICA)</div>
+                  <ul class="term-list">
+                    ${meansHtml}
+                  </ul>
+                </div>
+              </div>
+            `;
+          }
+
+          case "professional-growth": {
+            const objHtml = st.objectives.map(item => `<li>${esc(item)}</li>`).join("");
+            const meansHtml = st.means.map(m => `<li>${esc(m)}</li>`).join("");
+            return `
+              ${promptLine(st.cmd, prevPath)}
+              <div class="term-output-content">
+                <div class="term-line">
+                  <div class="term-section-title">DIRETÓRIO 06 — /professional-growth (7º E 8º PERÍODOS — ${esc(st.semesterTag.toUpperCase())})</div>
+                  <div class="term-section-subtitle">Consolidação profissional — objetivos</div>
+                  <ul class="term-list two-col amber-markers">
+                    ${objHtml}
+                  </ul>
+                </div>
+                <div class="term-line">
+                  <div class="term-section-title">MEIOS DE CONSOLIDAÇÃO</div>
+                  <ul class="term-list">
+                    ${meansHtml}
+                  </ul>
+                </div>
+              </div>
+            `;
+          }
+
+          case "explore-specializations": {
+            const areasHtml = st.areas.map((a, idx) => `
+              <div class="spec-item">
+                <div class="spec-name" ${a.highlight ? 'style="color:var(--green-prompt);"' : ""}>
+                  ${idx + 1}. ${esc(a.name)}
+                  ${a.highlight ? '<span class="spec-badge">[interseção: Direito, investigação e Computação Forense]</span>' : ""}
+                </div>
+                <div class="spec-desc">${esc(a.description)}</div>
+              </div>
+            `).join("");
+            return `
+              ${promptLine(st.cmd, prevPath)}
+              <div class="term-output-content">
+                <div class="term-line">
+                  <div class="term-section-title">DIRETÓRIO 07 — /explore-specializations</div>
+                  <div class="term-section-subtitle">Possíveis caminhos dentro da Cibersegurança (explorando possibilidades)</div>
+                  ${areasHtml}
+                </div>
+                <div class="term-line">
+                  <div class="term-quote amber">
+                    ${esc(st.intersectionNote)}
+                  </div>
+                </div>
+              </div>
+            `;
+          }
+
+          case "future": {
+            const meansRows = st.summaryMeans.map(m => `
+              <div class="term-row">
+                <span class="term-col-key green">${esc(m.label)}</span>
+                <span class="term-col-val">${esc(m.text)}</span>
+              </div>
+            `).join("");
+            return `
+              ${promptLine(st.cmd, prevPath)}
+              <div class="term-output-content">
+                <div class="term-line">
+                  <div class="term-section-title">DIRETÓRIO 08 — /future</div>
+                  <div class="term-section-subtitle">Objetivo ao final da graduação (04 anos / 08 períodos — 06 semestres planejados do 3º ao 8º)</div>
+                  <p style="padding-left:1.25rem; color:var(--text-normal);">
+                    ${esc(st.visionObjective)}
+                  </p>
+                </div>
+                <div class="term-line">
+                  <div class="term-section-title">RESUMO DOS MEIOS DE AQUISIÇÃO UTILIZADOS NO ROADMAP</div>
+                  <div class="term-table">
+                    ${meansRows}
+                  </div>
+                </div>
+              </div>
+            `;
+          }
+        }
+      }
+
+      const pagesHtml = DATA.stages.map((st, idx) => {
+        const prevPath = idx === 0 ? "~" : (DATA.stages[idx - 1].path || "~");
+        const bodyHtml = renderPdfStage(st, prevPath);
+        const curPath = st.path || "~";
+        const codeLabel = idx === 0 ? "00 / 08 — ~ (identificação)" : `${st.code} / 08 — ${st.dirName}`;
+
+        return `
+          <section class="pdf-page" aria-label="Página ${idx + 1}: ${esc(st.dirName)}">
+            <div class="terminal-window">
+              <header class="terminal-titlebar">
+                <div class="window-dots" aria-hidden="true">
+                  <span class="win-dot red"></span>
+                  <span class="win-dot yellow"></span>
+                  <span class="win-dot green"></span>
+                </div>
+                <div class="window-title">paulo@career-roadmap — bash</div>
+              </header>
+
+              <div class="terminal-body">
+                ${bodyHtml}
+              </div>
+
+              <footer class="terminal-footer-prompt">
+                <div class="live-prompt-row">
+                  <span class="live-prompt-prefix">paulo@career-roadmap:${esc(curPath)}$ </span>
+                  <span class="live-input-mirror-wrap">
+                    <span class="cursor-underscore">_</span>
+                  </span>
+                </div>
+              </footer>
+            </div>
+
+            <div class="pdf-page-footer">
+              <span>paulo@career-roadmap — Roadmap de Carreira em Cibersegurança (PUC Minas)</span>
+              <span>${esc(codeLabel)}</span>
+            </div>
+          </section>
+        `;
+      }).join("");
+
+      deck.innerHTML = pagesHtml;
+    })();
+  </script>
+</body>
+</html>
