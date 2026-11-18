@@ -8,7 +8,7 @@ window.ROADMAP_DATA = {
     { text: "Initializing Career Roadmap..." },
     { text: "Loading academic history..." },
     { text: "Analyzing professional background..." },
-    { text: "Mapping future possibilities..." },
+    { text: "Mapping 6-semester timeline and milestones..." },
     { text: "System successfully initialized.", isFinal: true }
   ],
 
@@ -67,7 +67,7 @@ window.ROADMAP_DATA = {
       title: "Transição do Direito para a Ciência da Computação",
       highlights: [
         "Interesse por tecnologia e programação.",
-        "Ingresso em Ciência da Computação na PUC Minas.",
+        "Ingresso em Ciência da Computação na PUC Minas (1º e 2º períodos concluídos).",
         "Interesse crescente por segurança da informação.",
         "Possibilidade de unir conhecimentos jurídicos e tecnológicos no futuro."
       ]
@@ -92,17 +92,23 @@ window.ROADMAP_DATA = {
         "Seminários III.",
         "Optativa I."
       ],
-      priorities: [
-        "Fortalecer a lógica de programação.",
-        "Desenvolver projetos práticos.",
-        "Organizar e alimentar meu GitHub.",
-        "Começar a aprofundar conhecimentos em Linux.",
-        "Desenvolver o inglês técnico.",
-        "Explorar diferentes áreas da Computação."
+      milestones: [
+        {
+          window: "Início → Metade do 3º Período",
+          goal: "Fortalecer a lógica de programação, estruturar o perfil no GitHub e praticar leitura técnica em inglês."
+        },
+        {
+          window: "Metade → Final do 3º Período",
+          goal: "Desenvolver projetos práticos das disciplinas, explorar áreas da Computação e iniciar estudos em Linux."
+        },
+        {
+          window: "Meta até o início do 4º Período",
+          goal: "Dominar comandos base e estrutura do Linux para chegar preparado na disciplina de Segurança e Criptografia."
+        }
       ],
       means: [
         "Graduação: disciplinas do 3º período na PUC Minas.",
-        "Sites e prática: Linux Journey, OverTheWire e repositórios no GitHub.",
+        "Sites e prática: Linux Journey, OverTheWire (Bandit) e repositórios no GitHub.",
         "Livros e docs: The Linux Command Line (William Shotts) e documentações em inglês."
       ]
     },
@@ -122,18 +128,24 @@ window.ROADMAP_DATA = {
         "Data Science & Big Data.",
         "Tecnologia em Ambientes de Informação I."
       ],
-      objectives: [
-        "Aprofundar os estudos em segurança da informação.",
-        "Iniciar ou aprofundar um curso de Linux.",
-        "Estudar fundamentos de redes de computadores.",
-        "Realizar laboratórios práticos de cibersegurança.",
-        "Buscar aproximação acadêmica com professores da área.",
-        "Investigar possibilidades de iniciação científica."
+      milestones: [
+        {
+          window: "Início → Metade do 4º Período",
+          goal: "Iniciar curso dedicado de Linux e estudar fundamentos de redes de computadores (modelos OSI e TCP/IP)."
+        },
+        {
+          window: "Metade → Final do 4º Período",
+          goal: "Aprofundar os estudos em segurança da informação (Segurança e Criptografia) e iniciar laboratórios práticos."
+        },
+        {
+          window: "Meta até o início do 5º Período",
+          goal: "Buscar aproximação acadêmica com professores da área e definir possibilidade de Iniciação Científica."
+        }
       ],
       means: [
         "Graduação: disciplinas do 4º período (destaque para Segurança e Criptografia).",
         "Cursos e sites: curso de Linux, Cisco Networking Academy e TryHackMe (trilhas iniciais).",
-        "Livros e pesquisa: Redes de Computadores (Kurose & Ross) e orientação docente para Iniciação Científica."
+        "Livros e pesquisa: Redes de Computadores (Kurose & Ross) e contato com docentes para Iniciação Científica."
       ]
     },
     {
@@ -146,21 +158,31 @@ window.ROADMAP_DATA = {
       cmd: "cd skill-development",
       semesterTag: "3º Ano do curso • 3º e 4º Semestres do Roadmap",
       title: "5º e 6º períodos — Desenvolvimento técnico",
-      plannedEvolution: [
-        "Aprofundamento em Linux.",
-        "Redes de computadores.",
-        "Sistemas operacionais.",
-        "Fundamentos de segurança da informação.",
-        "Programação e desenvolvimento de projetos.",
-        "Laboratórios práticos de segurança.",
-        "Participação em comunidades e eventos.",
-        "Busca por estágio na área de tecnologia."
+      sem5Milestones: [
+        {
+          window: "5º Período (1ª metade)",
+          goal: "Aprofundar conhecimentos em Sistemas Operacionais e administração de ambientes Linux."
+        },
+        {
+          window: "5º Período (até o final do semestre)",
+          goal: "Consolidar base em redes de computadores, fundamentos de segurança e desenvolvimento de projetos práticos."
+        }
+      ],
+      sem6Milestones: [
+        {
+          window: "6º Período (1ª metade)",
+          goal: "Intensificar laboratórios práticos de segurança e participar de comunidades e eventos da área."
+        },
+        {
+          window: "Meta até o final do 6º Período",
+          goal: "Conquistar e iniciar estágio na área de tecnologia / segurança da informação."
+        }
       ],
       means: [
         "Graduação: disciplinas do 5º e 6º períodos da PUC Minas.",
         "Sites e laboratórios: TryHackMe, Hack The Box e PortSwigger Web Security Academy.",
-        "Livros e docs: Sistemas Operacionais Modernos (Tanenbaum) e guias OWASP.",
-        "Prática profissional: estágio na área de tecnologia, eventos e projetos no GitHub."
+        "Livros e docs: Sistemas Operacionais Modernos (Tanenbaum) e documentações OWASP.",
+        "Prática profissional: busca por estágio em tecnologia, eventos e projetos no GitHub."
       ]
     },
     {
@@ -173,19 +195,30 @@ window.ROADMAP_DATA = {
       cmd: "cd professional-growth",
       semesterTag: "4º Ano do curso • 5º e 6º Semestres do Roadmap",
       title: "7º e 8º períodos — Consolidação profissional",
-      objectives: [
-        "Identificar uma possível especialização dentro da Cibersegurança.",
-        "Buscar certificações relevantes.",
-        "Consolidar experiência profissional por meio de estágio.",
-        "Desenvolver um portfólio técnico.",
-        "Buscar oportunidades de iniciação científica.",
-        "Desenvolver um Trabalho de Conclusão de Curso relacionado à área, se possível.",
-        "Construir networking profissional."
+      sem7Milestones: [
+        {
+          window: "7º Período (1ª metade)",
+          goal: "Consolidar experiência prática por meio do estágio e identificar uma possível especialização na Cibersegurança."
+        },
+        {
+          window: "7º Período (até o final do semestre)",
+          goal: "Atuar em Iniciação Científica, definir o tema do TCC relacionado à área e iniciar estudo para certificação."
+        }
+      ],
+      sem8Milestones: [
+        {
+          window: "8º Período (1ª metade)",
+          goal: "Desenvolver o Trabalho de Conclusão de Curso (TCC) e consolidar o portfólio técnico no GitHub."
+        },
+        {
+          window: "Meta até a conclusão do 8º Período",
+          goal: "Concluir o TCC, buscar certificação relevante de entrada e fortalecer o networking profissional."
+        }
       ],
       means: [
         "Graduação e pesquisa: disciplinas finais, Iniciação Científica e TCC na PUC Minas.",
-        "Experiência formal: consolidação no estágio e portfólio técnico no GitHub.",
-        "Cursos e certificações: estudo para certificações de entrada (ex.: CompTIA Security+ ou Cisco CCST)."
+        "Experiência formal: estágio em tecnologia/segurança e portfólio técnico no GitHub.",
+        "Cursos e certificações: preparação para certificações de entrada (ex.: CompTIA Security+ ou Cisco CCST)."
       ]
     },
     {
@@ -229,13 +262,61 @@ window.ROADMAP_DATA = {
       dirName: "/future",
       path: "~/future",
       cmd: "cd future",
-      title: "Visão de futuro (conclusão dos 04 anos de curso)",
+      title: "Visão de futuro e meios de aquisição consolidados",
       visionObjective: "Construir uma carreira sólida na área de Cibersegurança, combinando formação acadêmica, conhecimento técnico, experiência prática e aprendizado contínuo.",
       summaryMeans: [
         { label: "Graduação (04 anos)", text: "Ciência da Computação na PUC Minas (1º ao 8º período, com 06 semestres planejados do 3º ao 8º), Iniciação Científica e TCC." },
         { label: "Cursos e Labs", text: "Cursos de Linux e Redes (Cisco NetAcad), TryHackMe, Hack The Box e OverTheWire." },
         { label: "Livros e Docs", text: "The Linux Command Line, Redes de Computadores (Kurose), Sistemas Operacionais (Tanenbaum) e docs oficiais." },
         { label: "Prática e Mercado", text: "Projetos no GitHub, comunidades/eventos, estágio em tecnologia e certificações relevantes." }
+      ]
+    },
+    {
+      id: "timeline",
+      index: 9,
+      code: "09",
+      slug: "timeline",
+      dirName: "/timeline",
+      path: "~/timeline",
+      cmd: "cd timeline",
+      title: "Resumo geral em linha do tempo (3º ao 8º período — 06 semestres)",
+      timelineSteps: [
+        {
+          sem: "1º Sem • 3º Período (2º Ano)",
+          startGoal: "Início/Meio: Lógica, GitHub e Inglês técnico.",
+          endTarget: "Meta até o fim do 3º: Base de Linux (Linux Journey/Bandit) e projetos práticos concluídos.",
+          means: "PUC Minas • Livro The Linux Command Line • GitHub"
+        },
+        {
+          sem: "2º Sem • 4º Período (2º Ano)",
+          startGoal: "Início/Meio: Curso de Linux e Fundamentos de Redes.",
+          endTarget: "Meta até o fim do 4º: Segurança e Criptografia, labs iniciais no TryHackMe e contato para IC.",
+          means: "PUC Minas • Cisco NetAcad • Livro Redes (Kurose) • TryHackMe"
+        },
+        {
+          sem: "3º Sem • 5º Período (3º Ano)",
+          startGoal: "Início/Meio: Sistemas Operacionais e Linux avançado.",
+          endTarget: "Meta até o fim do 5º: Segurança em redes, projetos aplicados no GitHub e prática em laboratórios.",
+          means: "PUC Minas • Livro SO (Tanenbaum) • TryHackMe"
+        },
+        {
+          sem: "4º Sem • 6º Período (3º Ano)",
+          startGoal: "Início/Meio: Labs de vulnerabilidades e participação em eventos/comunidades.",
+          endTarget: "Meta até o fim do 6º: Conquistar e iniciar estágio na área de tecnologia / segurança.",
+          means: "PUC Minas • Hack The Box • PortSwigger / OWASP • Estágio"
+        },
+        {
+          sem: "5º Sem • 7º Período (4º Ano)",
+          startGoal: "Início/Meio: Consolidar estágio e direcionar especialização em Cibersegurança.",
+          endTarget: "Meta até o fim do 7º: Iniciação Científica em andamento, tema do TCC definido e base para certificação.",
+          means: "PUC Minas (IC) • Estágio • Guias de certificação"
+        },
+        {
+          sem: "6º Sem • 8º Período (4º Ano)",
+          startGoal: "Início/Meio: Desenvolvimento do TCC na área e consolidação do portfólio técnico.",
+          endTarget: "Meta até a formatura: Defesa do TCC, exame de certificação inicial e transição para atuação profissional.",
+          means: "PUC Minas (TCC) • Security+ / Cisco CCST • Portfólio GitHub"
+        }
       ]
     }
   ]

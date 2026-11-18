@@ -47,7 +47,8 @@ Seguindo a metodologia proposta na disciplina de Mentoring III, o percurso foi o
 | **05** | `/skill-development` | **5º e 6º Períodos** *(3º Ano • 3º e 4º Semestres do Roadmap)* | Evolução técnica planejada, laboratórios práticos e busca por estágio |
 | **06** | `/professional-growth` | **7º e 8º Períodos** *(4º Ano • 5º e 6º Semestres do Roadmap)* | Consolidação profissional, estágio, Iniciação Científica, TCC e certificações |
 | **07** | `/explore-specializations` | Vertentes da Área | Exploração de quatro caminhos em Cibersegurança (Ofensiva, Defensiva, Computação Forense e Criptografia) |
-| **08** | `/future` | Síntese Final | Objetivo ao final dos 04 anos de curso e resumo consolidado dos meios de aquisição |
+| **08** | `/future` | Visão de Futuro | Objetivo ao final dos 04 anos de curso e resumo consolidado dos meios de aquisição |
+| **09** | `/timeline` | **Linha do Tempo Geral** | **Síntese cronológica dos 06 semestres (do 3º ao 8º período) com metas intermediárias e de conclusão** |
 
 ---
 
@@ -64,13 +65,15 @@ Seguindo a metodologia proposta na disciplina de Mentoring III, o percurso foi o
 - `cd professional-growth` (ou `cd 06`)
 - `cd explore-specializations` (ou `cd 07`)
 - `cd future` (ou `cd 08`)
+- `cd timeline` (ou `cd 09`) — Abre o slide final com o resumo completo em linha do tempo.
 - `home` (ou `cd ~`, `cd ..`) — Retorna à tela inicial.
 - `clear` — Limpa a área de saída do terminal.
 - `reboot` — Reinicia a sequência de inicialização do sistema.
 
 ### Comandos de Apresentação
 - `whoami` — Exibe os dados de identificação acadêmica e objetivo profissional.
-- `roadmap --overview` — Lista a visão geral das 8 etapas do roadmap.
+- `roadmap --overview` — Lista a visão geral das etapas do roadmap.
+- `roadmap --timeline` — Exibe a síntese cronológica completa dos 06 semestres (3º ao 8º período).
 - `roadmap --current` — Exibe o resumo do período atual (3º período).
 - `roadmap --future` — Lista as etapas futuras (do 4º ao 8º período).
 - `skills --list` — Apresenta as competências adquiridas, prioridades atuais e evolução técnica planejada.

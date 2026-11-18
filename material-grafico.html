@@ -12,11 +12,11 @@
   <link rel="stylesheet" href="css/stages.css" />
   <style>
     :root {
-      --fs-xs: 0.78rem;
-      --fs-sm: 0.88rem;
-      --fs-base: 0.96rem;
-      --fs-md: 1.08rem;
-      --fs-lg: 1.24rem;
+      --fs-xs: 0.76rem;
+      --fs-sm: 0.86rem;
+      --fs-base: 0.94rem;
+      --fs-md: 1.06rem;
+      --fs-lg: 1.22rem;
     }
 
     html, body {
@@ -77,7 +77,7 @@
 
     .pdf-page {
       width: 100%;
-      max-width: 1220px;
+      max-width: 1240px;
       display: flex;
       flex-direction: column;
       gap: 0.45rem;
@@ -92,53 +92,65 @@
     }
 
     .pdf-page .terminal-titlebar {
-      padding: 0.75rem 1.75rem;
+      padding: 0.7rem 1.75rem;
     }
 
     .pdf-page .terminal-body {
       overflow: visible;
-      padding: 1.35rem 2.1rem;
+      padding: 1.25rem 2rem;
     }
 
     .pdf-page .term-prompt-line {
-      margin-bottom: 1rem;
+      margin-bottom: 0.9rem;
     }
 
     .pdf-page .term-output-content {
-      gap: 1.05rem;
-      line-height: 1.52;
+      gap: 0.95rem;
+      line-height: 1.48;
     }
 
     .pdf-page .term-section-title {
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.28rem;
     }
 
     .pdf-page .term-section-subtitle {
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.45rem;
     }
 
     .pdf-page .term-list {
-      gap: 0.28rem;
+      gap: 0.25rem;
     }
 
     .pdf-page .term-list li {
-      line-height: 1.45;
+      line-height: 1.42;
     }
 
     .pdf-page .term-table {
-      gap: 0.32rem;
+      gap: 0.28rem;
     }
 
     .pdf-page .term-row {
-      line-height: 1.45;
+      line-height: 1.42;
+    }
+
+    .pdf-page .milestone-list {
+      gap: 0.35rem;
+    }
+
+    .pdf-page .milestone-item {
+      line-height: 1.42;
+    }
+
+    .pdf-page .timeline-summary-grid {
+      row-gap: 0.65rem;
     }
 
     .pdf-page .spec-item {
-      margin-bottom: 0.55rem;
+      margin-bottom: 0.5rem;
     }
 
     .pdf-page .terminal-footer-prompt {
-      padding: 0.75rem 2.1rem 0.85rem;
+      padding: 0.7rem 2rem 0.8rem;
     }
 
     .pdf-page .term-line {
@@ -168,11 +180,11 @@
 
     @media print {
       :root {
-        --fs-xs: 0.74rem;
-        --fs-sm: 0.84rem;
-        --fs-base: 0.92rem;
-        --fs-md: 1.04rem;
-        --fs-lg: 1.18rem;
+        --fs-xs: 0.72rem;
+        --fs-sm: 0.82rem;
+        --fs-base: 0.90rem;
+        --fs-md: 1.02rem;
+        --fs-lg: 1.15rem;
       }
 
       .pdf-toolbar {
@@ -215,7 +227,7 @@
       }
 
       .pdf-page .terminal-body {
-        padding: 1.15rem 1.9rem !important;
+        padding: 1.05rem 1.85rem !important;
       }
     }
   </style>
@@ -224,7 +236,7 @@
 
   <div class="pdf-toolbar">
     <a href="index.html" class="pdf-btn">← Voltar ao Terminal Interativo</a>
-    <span>Material Gráfico — Visualização para Impressão / PDF</span>
+    <span>Material Gráfico — Visualização para Impressão / PDF (incluindo Linha do Tempo Consolidada)</span>
     <button type="button" class="pdf-btn primary" onclick="window.print()">Salvar como PDF (Ctrl+P)</button>
   </div>
 
@@ -274,7 +286,7 @@
                   </div>
                 </div>
                 <div class="term-line">
-                  <div class="term-section-title">ESTRUTURA DO ROADMAP (08 ETAPAS)</div>
+                  <div class="term-section-title">ESTRUTURA DO ROADMAP (09 ETAPAS)</div>
                   <ul class="term-list two-col">
                     ${dirsHtml}
                   </ul>
@@ -327,23 +339,28 @@
 
           case "current-status": {
             const coursesHtml = st.courses.map(c => `<li>${esc(c)}</li>`).join("");
-            const prioritiesHtml = st.priorities.map(pr => `<li>${esc(pr)}</li>`).join("");
+            const milestonesHtml = st.milestones.map((m, idx) => `
+              <div class="milestone-item">
+                <span class="milestone-window ${idx === st.milestones.length - 1 ? "target-end" : ""}">[${esc(m.window)}]</span>
+                <span class="milestone-goal">${esc(m.goal)}</span>
+              </div>
+            `).join("");
             const meansHtml = st.means.map(m => `<li>${esc(m)}</li>`).join("");
             return `
               ${promptLine(st.cmd, prevPath)}
               <div class="term-output-content">
                 <div class="term-line">
                   <div class="term-section-title">DIRETÓRIO 03 — /current-status (3º PERÍODO — ${esc(st.semesterTag.toUpperCase())})</div>
-                  <div class="term-section-subtitle">Disciplinas atuais</div>
+                  <div class="term-section-subtitle">Disciplinas atuais em curso</div>
                   <ul class="term-list two-col">
                     ${coursesHtml}
                   </ul>
                 </div>
                 <div class="term-line">
-                  <div class="term-section-title">PRIORIDADES ATUAIS</div>
-                  <ul class="term-list two-col amber-markers">
-                    ${prioritiesHtml}
-                  </ul>
+                  <div class="term-section-title">CRONOGRAMA E METAS DO 3º PERÍODO (1º SEMESTRE DO ROADMAP)</div>
+                  <div class="milestone-list">
+                    ${milestonesHtml}
+                  </div>
                 </div>
                 <div class="term-line">
                   <div class="term-section-title">MEIOS DE ESTUDO (CURSOS, LIVROS E SITES)</div>
@@ -359,23 +376,28 @@
             const coursesHtml = st.courses.map((c, i) =>
               i === 0 ? `<li style="color:var(--green-prompt); font-weight:600;">${esc(c)}</li>` : `<li>${esc(c)}</li>`
             ).join("");
-            const objHtml = st.objectives.map(o => `<li>${esc(o)}</li>`).join("");
+            const milestonesHtml = st.milestones.map((m, idx) => `
+              <div class="milestone-item">
+                <span class="milestone-window ${idx === st.milestones.length - 1 ? "target-end" : ""}">[${esc(m.window)}]</span>
+                <span class="milestone-goal">${esc(m.goal)}</span>
+              </div>
+            `).join("");
             const meansHtml = st.means.map(m => `<li>${esc(m)}</li>`).join("");
             return `
               ${promptLine(st.cmd, prevPath)}
               <div class="term-output-content">
                 <div class="term-line">
                   <div class="term-section-title">DIRETÓRIO 04 — /next-semester (4º PERÍODO — ${esc(st.semesterTag.toUpperCase())})</div>
-                  <div class="term-section-subtitle">Disciplinas relevantes</div>
+                  <div class="term-section-subtitle">Disciplinas relevantes do período</div>
                   <ul class="term-list two-col">
                     ${coursesHtml}
                   </ul>
                 </div>
                 <div class="term-line">
-                  <div class="term-section-title">OBJETIVOS DO PERÍODO</div>
-                  <ul class="term-list two-col amber-markers">
-                    ${objHtml}
-                  </ul>
+                  <div class="term-section-title">CRONOGRAMA E METAS DO 4º PERÍODO (2º SEMESTRE DO ROADMAP)</div>
+                  <div class="milestone-list">
+                    ${milestonesHtml}
+                  </div>
                 </div>
                 <div class="term-line">
                   <div class="term-section-title">MEIOS PLANEJADOS (CURSOS, LIVROS E PLATAFORMAS)</div>
@@ -388,21 +410,39 @@
           }
 
           case "skill-development": {
-            const itemsHtml = st.plannedEvolution.map(item => `<li>${esc(item)}</li>`).join("");
+            const sem5Html = st.sem5Milestones.map((m, i) => `
+              <div class="sem-step-block">
+                <span class="sem-step-tag ${i === st.sem5Milestones.length - 1 ? "target-tag" : ""}">[${esc(m.window)}]</span>
+                <span class="sem-step-desc">${esc(m.goal)}</span>
+              </div>
+            `).join("");
+            const sem6Html = st.sem6Milestones.map((m, i) => `
+              <div class="sem-step-block">
+                <span class="sem-step-tag ${i === st.sem6Milestones.length - 1 ? "target-tag" : ""}">[${esc(m.window)}]</span>
+                <span class="sem-step-desc">${esc(m.goal)}</span>
+              </div>
+            `).join("");
             const meansHtml = st.means.map(m => `<li>${esc(m)}</li>`).join("");
             return `
               ${promptLine(st.cmd, prevPath)}
               <div class="term-output-content">
                 <div class="term-line">
                   <div class="term-section-title">DIRETÓRIO 05 — /skill-development (5º E 6º PERÍODOS — ${esc(st.semesterTag.toUpperCase())})</div>
-                  <div class="term-section-subtitle">Desenvolvimento técnico — evolução planejada</div>
-                  <ul class="term-list two-col amber-markers">
-                    ${itemsHtml}
-                  </ul>
+                  <div class="term-section-subtitle">Metas delimitadas por semestre (3º Ano do curso)</div>
+                  <div class="split-semesters-grid">
+                    <div class="sem-box">
+                      <div class="sem-box-title">3º Semestre do Roadmap • 5º Período</div>
+                      ${sem5Html}
+                    </div>
+                    <div class="sem-box">
+                      <div class="sem-box-title">4º Semestre do Roadmap • 6º Período</div>
+                      ${sem6Html}
+                    </div>
+                  </div>
                 </div>
                 <div class="term-line">
                   <div class="term-section-title">MEIOS PLANEJADOS (CURSOS, LIVROS, SITES E PRÁTICA)</div>
-                  <ul class="term-list">
+                  <ul class="term-list two-col">
                     ${meansHtml}
                   </ul>
                 </div>
@@ -411,17 +451,35 @@
           }
 
           case "professional-growth": {
-            const objHtml = st.objectives.map(item => `<li>${esc(item)}</li>`).join("");
+            const sem7Html = st.sem7Milestones.map((m, i) => `
+              <div class="sem-step-block">
+                <span class="sem-step-tag ${i === st.sem7Milestones.length - 1 ? "target-tag" : ""}">[${esc(m.window)}]</span>
+                <span class="sem-step-desc">${esc(m.goal)}</span>
+              </div>
+            `).join("");
+            const sem8Html = st.sem8Milestones.map((m, i) => `
+              <div class="sem-step-block">
+                <span class="sem-step-tag ${i === st.sem8Milestones.length - 1 ? "target-tag" : ""}">[${esc(m.window)}]</span>
+                <span class="sem-step-desc">${esc(m.goal)}</span>
+              </div>
+            `).join("");
             const meansHtml = st.means.map(m => `<li>${esc(m)}</li>`).join("");
             return `
               ${promptLine(st.cmd, prevPath)}
               <div class="term-output-content">
                 <div class="term-line">
                   <div class="term-section-title">DIRETÓRIO 06 — /professional-growth (7º E 8º PERÍODOS — ${esc(st.semesterTag.toUpperCase())})</div>
-                  <div class="term-section-subtitle">Consolidação profissional — objetivos</div>
-                  <ul class="term-list two-col amber-markers">
-                    ${objHtml}
-                  </ul>
+                  <div class="term-section-subtitle">Metas delimitadas por semestre (4º Ano do curso)</div>
+                  <div class="split-semesters-grid">
+                    <div class="sem-box">
+                      <div class="sem-box-title">5º Semestre do Roadmap • 7º Período</div>
+                      ${sem7Html}
+                    </div>
+                    <div class="sem-box">
+                      <div class="sem-box-title">6º Semestre do Roadmap • 8º Período</div>
+                      ${sem8Html}
+                    </div>
+                  </div>
                 </div>
                 <div class="term-line">
                   <div class="term-section-title">MEIOS DE CONSOLIDAÇÃO</div>
@@ -486,14 +544,40 @@
               </div>
             `;
           }
+
+          case "timeline": {
+            const cardsHtml = st.timelineSteps.map((step, idx) => `
+              <div class="timeline-card">
+                <div class="timeline-card-header">
+                  <span class="timeline-sem-name">[0${idx + 1}/06] ${esc(step.sem)}</span>
+                </div>
+                <div class="timeline-line-start">▸ ${esc(step.startGoal)}</div>
+                <div class="timeline-line-target">✔ ${esc(step.endTarget)}</div>
+                <div class="timeline-line-means">Meios: ${esc(step.means)}</div>
+              </div>
+            `).join("");
+            return `
+              ${promptLine(st.cmd, prevPath)}
+              <div class="term-output-content">
+                <div class="term-line">
+                  <div class="term-section-title">DIRETÓRIO 09 — /timeline (SÍNTESE CRONOLÓGICA — 06 SEMESTRES / 03 ANOS)</div>
+                  <div class="term-section-subtitle">Linha do tempo delimitada com entregas intermediárias e metas de conclusão por período (do 3º ao 8º período)</div>
+                  <div class="timeline-summary-grid">
+                    ${cardsHtml}
+                  </div>
+                </div>
+              </div>
+            `;
+          }
         }
       }
 
+      const totalCode = String(DATA.stages.length - 1).padStart(2, "0");
       const pagesHtml = DATA.stages.map((st, idx) => {
         const prevPath = idx === 0 ? "~" : (DATA.stages[idx - 1].path || "~");
         const bodyHtml = renderPdfStage(st, prevPath);
         const curPath = st.path || "~";
-        const codeLabel = idx === 0 ? "00 / 08 — ~ (identificação)" : `${st.code} / 08 — ${st.dirName}`;
+        const codeLabel = idx === 0 ? `00 / ${totalCode} — ~ (identificação)` : `${st.code} / ${totalCode} — ${st.dirName}`;
 
         return `
           <section class="pdf-page" aria-label="Página ${idx + 1}: ${esc(st.dirName)}">

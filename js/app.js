@@ -25,6 +25,7 @@
     "home",
     "clear",
     "roadmap --overview",
+    "roadmap --timeline",
     "roadmap --current",
     "roadmap --future",
     "skills --list",
@@ -37,7 +38,8 @@
     "cd skill-development",
     "cd professional-growth",
     "cd explore-specializations",
-    "cd future"
+    "cd future",
+    "cd timeline"
   ];
 
   const dom = {};
@@ -124,7 +126,8 @@
 
     const code = state.stageIndex === 0 ? "00" : cur.code;
     const label = state.stageIndex === 0 ? "~ (início)" : cur.dirName;
-    dom.discreetProgress.textContent = `${code} / 08 — ${label}`;
+    const total = String(DATA.stages.length - 1).padStart(2, "0");
+    dom.discreetProgress.textContent = `${code} / ${total} — ${label}`;
 
     if (state.stageIndex < DATA.stages.length - 1) {
       const nextSt = DATA.stages[state.stageIndex + 1];
@@ -342,6 +345,11 @@
 
     if (norm === "roadmap --overview" || norm === "roadmap") {
       renderOutput(R.renderRoadmapOverviewCommand(originPath));
+      return;
+    }
+    if (norm === "roadmap --timeline") {
+      const idx = DATA.stages.findIndex(s => s.id === "timeline");
+      setStage(idx, trimmed, originPath);
       return;
     }
     if (norm === "roadmap --current") {

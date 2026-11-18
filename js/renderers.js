@@ -65,15 +65,15 @@ window.TerminalRenderers = (function () {
           <div class="term-table">
             <div class="term-row clickable-row" data-exec-cmd="ls">
               <span class="term-col-key">ls</span>
-              <span class="term-col-val">Listar os 8 diretórios do roadmap</span>
+              <span class="term-col-val">Listar os 9 diretórios do roadmap</span>
             </div>
             <div class="term-row clickable-row" data-exec-cmd="cd history">
               <span class="term-col-key">cd history</span>
               <span class="term-col-val">Iniciar apresentação (Diretório 01)</span>
             </div>
-            <div class="term-row clickable-row" data-exec-cmd="roadmap --overview">
-              <span class="term-col-key">roadmap --overview</span>
-              <span class="term-col-val">Visão geral das etapas</span>
+            <div class="term-row clickable-row" data-exec-cmd="cd timeline">
+              <span class="term-col-key">cd timeline</span>
+              <span class="term-col-val">Abrir resumo final em linha do tempo (Diretório 09)</span>
             </div>
             <div class="term-row clickable-row" data-exec-cmd="help">
               <span class="term-col-key">help</span>
@@ -144,7 +144,12 @@ window.TerminalRenderers = (function () {
   function renderCurrentStatus(cmdUsed, originPath) {
     const st = DATA.stages.find(s => s.id === "current-status");
     const coursesHtml = st.courses.map(c => `<li>${esc(c)}</li>`).join("");
-    const prioritiesHtml = st.priorities.map(p => `<li>${esc(p)}</li>`).join("");
+    const milestonesHtml = st.milestones.map((m, idx) => `
+      <div class="milestone-item">
+        <span class="milestone-window ${idx === st.milestones.length - 1 ? "target-end" : ""}">[${esc(m.window)}]</span>
+        <span class="milestone-goal">${esc(m.goal)}</span>
+      </div>
+    `).join("");
     const meansHtml = st.means.map(m => `<li>${esc(m)}</li>`).join("");
 
     return `
@@ -152,17 +157,17 @@ window.TerminalRenderers = (function () {
       <div class="term-output-content">
         <div class="term-line" style="animation-delay: 20ms">
           <div class="term-section-title">DIRETÓRIO 03 — /current-status (3º PERÍODO — ${esc(st.semesterTag.toUpperCase())})</div>
-          <div class="term-section-subtitle">Disciplinas atuais</div>
+          <div class="term-section-subtitle">Disciplinas atuais em curso</div>
           <ul class="term-list two-col">
             ${coursesHtml}
           </ul>
         </div>
 
         <div class="term-line" style="animation-delay: 90ms">
-          <div class="term-section-title">PRIORIDADES ATUAIS</div>
-          <ul class="term-list two-col amber-markers">
-            ${prioritiesHtml}
-          </ul>
+          <div class="term-section-title">CRONOGRAMA E METAS DO 3º PERÍODO (1º SEMESTRE DO ROADMAP)</div>
+          <div class="milestone-list">
+            ${milestonesHtml}
+          </div>
         </div>
 
         <div class="term-line" style="animation-delay: 160ms">
@@ -185,7 +190,12 @@ window.TerminalRenderers = (function () {
         ? `<li style="color:var(--green-prompt); font-weight:600;">${esc(c)}</li>`
         : `<li>${esc(c)}</li>`
     ).join("");
-    const objectivesHtml = st.objectives.map(o => `<li>${esc(o)}</li>`).join("");
+    const milestonesHtml = st.milestones.map((m, idx) => `
+      <div class="milestone-item">
+        <span class="milestone-window ${idx === st.milestones.length - 1 ? "target-end" : ""}">[${esc(m.window)}]</span>
+        <span class="milestone-goal">${esc(m.goal)}</span>
+      </div>
+    `).join("");
     const meansHtml = st.means.map(m => `<li>${esc(m)}</li>`).join("");
 
     return `
@@ -193,17 +203,17 @@ window.TerminalRenderers = (function () {
       <div class="term-output-content">
         <div class="term-line" style="animation-delay: 20ms">
           <div class="term-section-title">DIRETÓRIO 04 — /next-semester (4º PERÍODO — ${esc(st.semesterTag.toUpperCase())})</div>
-          <div class="term-section-subtitle">Disciplinas relevantes</div>
+          <div class="term-section-subtitle">Disciplinas relevantes do período</div>
           <ul class="term-list two-col">
             ${coursesHtml}
           </ul>
         </div>
 
         <div class="term-line" style="animation-delay: 90ms">
-          <div class="term-section-title">OBJETIVOS DO PERÍODO</div>
-          <ul class="term-list two-col amber-markers">
-            ${objectivesHtml}
-          </ul>
+          <div class="term-section-title">CRONOGRAMA E METAS DO 4º PERÍODO (2º SEMESTRE DO ROADMAP)</div>
+          <div class="milestone-list">
+            ${milestonesHtml}
+          </div>
         </div>
 
         <div class="term-line" style="animation-delay: 160ms">
@@ -221,7 +231,20 @@ window.TerminalRenderers = (function () {
    */
   function renderSkillDevelopment(cmdUsed, originPath) {
     const st = DATA.stages.find(s => s.id === "skill-development");
-    const itemsHtml = st.plannedEvolution.map(item => `<li>${esc(item)}</li>`).join("");
+    const sem5Html = st.sem5Milestones.map((m, i) => `
+      <div class="sem-step-block">
+        <span class="sem-step-tag ${i === st.sem5Milestones.length - 1 ? "target-tag" : ""}">[${esc(m.window)}]</span>
+        <span class="sem-step-desc">${esc(m.goal)}</span>
+      </div>
+    `).join("");
+
+    const sem6Html = st.sem6Milestones.map((m, i) => `
+      <div class="sem-step-block">
+        <span class="sem-step-tag ${i === st.sem6Milestones.length - 1 ? "target-tag" : ""}">[${esc(m.window)}]</span>
+        <span class="sem-step-desc">${esc(m.goal)}</span>
+      </div>
+    `).join("");
+
     const meansHtml = st.means.map(m => `<li>${esc(m)}</li>`).join("");
 
     return `
@@ -229,15 +252,22 @@ window.TerminalRenderers = (function () {
       <div class="term-output-content">
         <div class="term-line" style="animation-delay: 20ms">
           <div class="term-section-title">DIRETÓRIO 05 — /skill-development (5º E 6º PERÍODOS — ${esc(st.semesterTag.toUpperCase())})</div>
-          <div class="term-section-subtitle">Desenvolvimento técnico — evolução planejada</div>
-          <ul class="term-list two-col amber-markers">
-            ${itemsHtml}
-          </ul>
+          <div class="term-section-subtitle">Metas delimitadas por semestre (3º Ano do curso)</div>
+          <div class="split-semesters-grid">
+            <div class="sem-box">
+              <div class="sem-box-title">3º Semestre do Roadmap • 5º Período</div>
+              ${sem5Html}
+            </div>
+            <div class="sem-box">
+              <div class="sem-box-title">4º Semestre do Roadmap • 6º Período</div>
+              ${sem6Html}
+            </div>
+          </div>
         </div>
 
         <div class="term-line" style="animation-delay: 110ms">
           <div class="term-section-title">MEIOS PLANEJADOS (CURSOS, LIVROS, SITES E PRÁTICA)</div>
-          <ul class="term-list">
+          <ul class="term-list two-col">
             ${meansHtml}
           </ul>
         </div>
@@ -250,7 +280,20 @@ window.TerminalRenderers = (function () {
    */
   function renderProfessionalGrowth(cmdUsed, originPath) {
     const st = DATA.stages.find(s => s.id === "professional-growth");
-    const objHtml = st.objectives.map(item => `<li>${esc(item)}</li>`).join("");
+    const sem7Html = st.sem7Milestones.map((m, i) => `
+      <div class="sem-step-block">
+        <span class="sem-step-tag ${i === st.sem7Milestones.length - 1 ? "target-tag" : ""}">[${esc(m.window)}]</span>
+        <span class="sem-step-desc">${esc(m.goal)}</span>
+      </div>
+    `).join("");
+
+    const sem8Html = st.sem8Milestones.map((m, i) => `
+      <div class="sem-step-block">
+        <span class="sem-step-tag ${i === st.sem8Milestones.length - 1 ? "target-tag" : ""}">[${esc(m.window)}]</span>
+        <span class="sem-step-desc">${esc(m.goal)}</span>
+      </div>
+    `).join("");
+
     const meansHtml = st.means.map(m => `<li>${esc(m)}</li>`).join("");
 
     return `
@@ -258,10 +301,17 @@ window.TerminalRenderers = (function () {
       <div class="term-output-content">
         <div class="term-line" style="animation-delay: 20ms">
           <div class="term-section-title">DIRETÓRIO 06 — /professional-growth (7º E 8º PERÍODOS — ${esc(st.semesterTag.toUpperCase())})</div>
-          <div class="term-section-subtitle">Consolidação profissional — objetivos</div>
-          <ul class="term-list two-col amber-markers">
-            ${objHtml}
-          </ul>
+          <div class="term-section-subtitle">Metas delimitadas por semestre (4º Ano do curso)</div>
+          <div class="split-semesters-grid">
+            <div class="sem-box">
+              <div class="sem-box-title">5º Semestre do Roadmap • 7º Período</div>
+              ${sem7Html}
+            </div>
+            <div class="sem-box">
+              <div class="sem-box-title">6º Semestre do Roadmap • 8º Período</div>
+              ${sem8Html}
+            </div>
+          </div>
         </div>
 
         <div class="term-line" style="animation-delay: 110ms">
@@ -308,7 +358,7 @@ window.TerminalRenderers = (function () {
   }
 
   /**
-   * DIR 08 — `/future` (Sem frases de efeito)
+   * DIR 08 — `/future`
    */
   function renderFuture(cmdUsed, originPath) {
     const st = DATA.stages.find(s => s.id === "future");
@@ -341,6 +391,36 @@ window.TerminalRenderers = (function () {
   }
 
   /**
+   * DIR 09 — `/timeline` (Slide Final: Resumo Geral em Linha do Tempo)
+   */
+  function renderTimeline(cmdUsed, originPath) {
+    const st = DATA.stages.find(s => s.id === "timeline");
+    const cardsHtml = st.timelineSteps.map((step, idx) => `
+      <div class="timeline-card">
+        <div class="timeline-card-header">
+          <span class="timeline-sem-name">[0${idx + 1}/06] ${esc(step.sem)}</span>
+        </div>
+        <div class="timeline-line-start">▸ ${esc(step.startGoal)}</div>
+        <div class="timeline-line-target">✔ ${esc(step.endTarget)}</div>
+        <div class="timeline-line-means">Meios: ${esc(step.means)}</div>
+      </div>
+    `).join("");
+
+    return `
+      ${promptLine(cmdUsed || "cd timeline", originPath || "~/future")}
+      <div class="term-output-content">
+        <div class="term-line" style="animation-delay: 20ms">
+          <div class="term-section-title">DIRETÓRIO 09 — /timeline (SÍNTESE CRONOLÓGICA — 06 SEMESTRES / 03 ANOS)</div>
+          <div class="term-section-subtitle">Linha do tempo delimitada com entregas intermediárias e metas de conclusão por período (do 3º ao 8º período)</div>
+          <div class="timeline-summary-grid">
+            ${cardsHtml}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  /**
    * Despacho das etapas do roadmap
    */
   function renderStageById(stageId, cmdUsed, originPath) {
@@ -354,6 +434,7 @@ window.TerminalRenderers = (function () {
       case "professional-growth":     return renderProfessionalGrowth(cmdUsed, originPath);
       case "explore-specializations": return renderExploreSpecializations(cmdUsed, originPath);
       case "future":                  return renderFuture(cmdUsed, originPath);
+      case "timeline":                return renderTimeline(cmdUsed, originPath);
       default:                        return renderHome(cmdUsed, originPath);
     }
   }
@@ -375,6 +456,10 @@ window.TerminalRenderers = (function () {
               <span class="term-col-key">roadmap --overview</span>
               <span class="term-col-val">Complete roadmap</span>
             </div>
+            <div class="term-row clickable-row" data-exec-cmd="roadmap --timeline">
+              <span class="term-col-key">roadmap --timeline</span>
+              <span class="term-col-val">Full 6-semester chronological timeline summary</span>
+            </div>
             <div class="term-row clickable-row" data-exec-cmd="roadmap --current">
               <span class="term-col-key">roadmap --current</span>
               <span class="term-col-val">Current academic stage</span>
@@ -395,9 +480,9 @@ window.TerminalRenderers = (function () {
               <span class="term-col-key">ls</span>
               <span class="term-col-val">List directories</span>
             </div>
-            <div class="term-row clickable-row" data-exec-cmd="cd history">
+            <div class="term-row clickable-row" data-exec-cmd="cd timeline">
               <span class="term-col-key">cd &lt;directory&gt;</span>
-              <span class="term-col-val">Navigate to directory (e.g. cd history)</span>
+              <span class="term-col-val">Navigate to directory (e.g. cd history, cd timeline)</span>
             </div>
             <div class="term-row clickable-row" data-exec-cmd="home">
               <span class="term-col-key">home</span>
@@ -534,6 +619,10 @@ window.TerminalRenderers = (function () {
               <span class="term-col-key green">/future</span>
               <span class="term-col-val">Visão de futuro e resumo dos meios de aquisição</span>
             </div>
+            <div class="term-row clickable-row" data-exec-cmd="cd timeline">
+              <span class="term-col-key green">/timeline</span>
+              <span class="term-col-val">Resumo geral em linha do tempo (3º ao 8º período)</span>
+            </div>
           </div>
         </div>
       </div>
@@ -541,39 +630,7 @@ window.TerminalRenderers = (function () {
   }
 
   function renderSkillsListCommand(path) {
-    const sHist = DATA.stages.find(s => s.id === "history");
-    const sCur = DATA.stages.find(s => s.id === "current-status");
-    const sDev = DATA.stages.find(s => s.id === "skill-development");
-
-    const histHtml = sHist.competencies.map(c => `<li>${esc(c)}</li>`).join("");
-    const curHtml = sCur.priorities.map(p => `<li>${esc(p)}</li>`).join("");
-    const devHtml = sDev.plannedEvolution.map(d => `<li>${esc(d)}</li>`).join("");
-
-    return `
-      ${promptLine("skills --list", path)}
-      <div class="term-output-content">
-        <div class="term-line" style="animation-delay: 20ms">
-          <div class="term-section-title">COMPETÊNCIAS ADQUIRIDAS (/history)</div>
-          <ul class="term-list">
-            ${histHtml}
-          </ul>
-        </div>
-
-        <div class="term-line" style="animation-delay: 90ms">
-          <div class="term-section-title">PRIORIDADES ATUAIS — 3º PERÍODO (/current-status)</div>
-          <ul class="term-list amber-markers">
-            ${curHtml}
-          </ul>
-        </div>
-
-        <div class="term-line" style="animation-delay: 160ms">
-          <div class="term-section-title">EVOLUÇÃO PLANEJADA — 5º E 6º PERÍODOS (/skill-development)</div>
-          <ul class="term-list">
-            ${devHtml}
-          </ul>
-        </div>
-      </div>
-    `;
+    return renderTimeline("skills --list", path);
   }
 
   function renderSpecializationsExploreCommand(path) {
@@ -606,6 +663,7 @@ window.TerminalRenderers = (function () {
     renderRoadmapFutureCommand,
     renderSkillsListCommand,
     renderSpecializationsExploreCommand,
+    renderTimeline,
     renderUnknownCommand
   };
 })();
